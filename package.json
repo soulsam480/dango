@@ -1,0 +1,10 @@
+{
+  "name": "dango",
+  "version": "0.1.0",
+  "author": "soulsam480 <soulsam480@hotmail.com>",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "MIT"
+}
