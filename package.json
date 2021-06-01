@@ -2,9 +2,15 @@
   "name": "dango",
   "version": "0.1.0",
   "author": "soulsam480 <soulsam480@hotmail.com>",
+  "description": "functional routing controllers for express",
+  "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "yarn workspace @dango/core dev",
+    "build:core": "yarn workspace @dango/core build",
+    "build": "yarn build:core"
+  },
   "workspaces": [
     "packages/*"
-  ],
-  "license": "MIT"
+  ]
 }
