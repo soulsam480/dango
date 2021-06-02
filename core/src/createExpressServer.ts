@@ -1,7 +1,7 @@
 import { BaseConfig, DangoRouterStack } from 'src/types';
 import { sync } from 'fast-glob';
-import express, { Express, Router } from 'express';
-export const createExpressServer = (server: Express, { controllers }: BaseConfig) => {
+import express, { Express } from 'express';
+export const createExpressServer = (server: Express, { controllers }: BaseConfig): Express => {
   const controllerEntires = sync(controllers, { dot: false });
   controllerEntires.forEach((controller) => {
     const file = require(controller);
@@ -11,13 +11,7 @@ export const createExpressServer = (server: Express, { controllers }: BaseConfig
     dangoRouterStack._routes.forEach(({ handler, method, path }) => {
       router[method](path, handler);
     });
-    console.log(router);
     server.use(dangoRouterStack._path, router);
   });
+  return server;
 };
-
-const app = express();
-//TODO: add support for absolute paths
-createExpressServer(app, { controllers: ['src/sample/*.ts'] });
-
-console.log(app.routes);

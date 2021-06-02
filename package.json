@@ -11,6 +11,6 @@
     "build": "yarn build:core"
   },
   "workspaces": [
-    "packages/*"
+    "core"
   ]
 }
