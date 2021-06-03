@@ -1,5 +1,4 @@
-import { createHandler } from 'src/routing/createHandler';
-import { createController } from 'src/routing';
+import { createController, createHandler } from '../../core';
 
 const aController = createController({
   path: '/',
@@ -8,4 +7,5 @@ const aController = createController({
 createHandler(aController).Get('/', (req, res) => {
   res.send('yolo');
 });
+
 export default aController;

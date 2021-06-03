@@ -2,6 +2,12 @@
   "name": "@dango/core",
   "version": "0.0.1",
   "license": "MIT",
+  "main": "./dist/index.js",
+  "type": "commonjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "private": true,
   "scripts": {
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
