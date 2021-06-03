@@ -6,6 +6,6 @@ export function createController(options: DangoControllerOptions): DangoControll
     _routes: [],
   };
   return {
-    _routerStack: _routerStack,
+    _routerStack: Object.freeze(_routerStack),
   };
 }

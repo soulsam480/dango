@@ -7,7 +7,7 @@
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register index.ts"
   },
   "dependencies": {
-    "dango-core": "^0.0.1",
+    "dango-core": "workspace:dango-core",
     "express": "^4.17.1"
   },
   "devDependencies": {
