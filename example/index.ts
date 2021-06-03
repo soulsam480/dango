@@ -1,5 +1,5 @@
 import express from 'express';
-import { createExpressServer } from '../core';
+import { createExpressServer } from '@dango/core';
 const app = express();
 
 createExpressServer(app, {

@@ -1,4 +1,4 @@
-import { createController, createHandler } from '../../core';
+import { createController, createHandler } from '@dango/core';
 
 const aController = createController({
   path: '/',
