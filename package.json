@@ -7,10 +7,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn workspace @dango/core dev",
-    "build:core": "yarn workspace @dango/core build",
+    "dev": "yarn workspace dango-core dev",
+    "build:core": "yarn workspace dango-core build",
     "build": "yarn build:core",
-    "dev:ex": "yarn workspace @dango/example dev"
+    "dev:ex": "yarn workspace @dango/example dev",
+    "release-core": "cd core && npm publish"
   },
   "workspaces": [
     "core",

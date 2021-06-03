@@ -1,5 +1,5 @@
 {
-  "name": "@dango/core",
+  "name": "dango-core",
   "version": "0.0.1",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -8,7 +8,12 @@
   "files": [
     "dist"
   ],
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soulsam480/dango.git",
+    "directory": "core"
+  },
+  "private": false,
   "scripts": {
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
     "build": "rm -rf dist && yarn && tsc && tsc-alias"
