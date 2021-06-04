@@ -1,6 +1,6 @@
 {
   "name": "dango",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "soulsam480 <soulsam480@hotmail.com>",
   "description": "functional routing controllers for express",
   "types": "index.d.ts",
@@ -11,6 +11,7 @@
     "build:core": "yarn workspace dango-core build",
     "build": "yarn build:core",
     "dev:ex": "yarn workspace example dev",
+    "build:ex": "yarn workspace example build",
     "release-core": "cd core && npm publish"
   },
   "workspaces": [

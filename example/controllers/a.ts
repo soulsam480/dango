@@ -1,11 +1,20 @@
-import { createController, createHandler } from 'dango-core';
+import { createController } from 'dango-core';
 
-const aController = createController({
-  path: '/',
-});
-
-createHandler(aController).Get('/', (req, res) => {
-  res.send('yolo');
-});
-
-export default aController;
+export default createController(
+  '/aa',
+  [
+    {
+      path: '/:id',
+      method: 'get',
+      handler: (req, res) => {
+        res.send('is this working ?');
+      },
+    },
+  ],
+  [
+    (req, res, next) => {
+      if (!req.params.id) return next('no param');
+      next();
+    },
+  ],
+);
