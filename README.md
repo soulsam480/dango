@@ -3,6 +3,10 @@
 > Dumpling in japaneese.
 
 POC for functional `controllers` and `route-handlers` in express.
+
+### Update
+I'm not fmailiar with `functional programming` and it's concepts. I'm learning it now and it turns out the current dango code is not functional at all. I'll be proposing a new `API` for dango again. As we have been doing `OOP` for so long, `FP` will take some time to be fully understood. The current API may be scraped out completely, but I'll be tagging it for future reference. Thanks. 
+
 ### Proposed API
 
 Core:
