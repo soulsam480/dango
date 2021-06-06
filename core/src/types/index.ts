@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 export interface BaseConfig {
-  controllers: string[];
+  controllers: (string | DangoController)[];
   middlewares?: DangoMiddleware[];
+  prefix?: string;
 }
 
 export interface DangoControllerOptions {

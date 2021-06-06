@@ -1,9 +1,12 @@
 import express from 'express';
-import { createExpressServer } from 'dango-core';
+import { createController, createExpressServer } from 'dango-core';
 const app = express();
 
 createExpressServer(app, {
-  controllers: ['controllers/*.ts'],
+  controllers: [
+    'controllers/*.ts',
+    createController('/m', [{ path: '/', method: 'get', handler: (req, res) => res.send('m') }]),
+  ],
   middlewares: [
     (req, res, next) => {
       console.log('global');
