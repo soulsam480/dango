@@ -24,7 +24,6 @@ export const createExpressServer = (
     server.use(...middlewares);
   }
 
-  // const fileBasedControllers = controllers.filter((controller) => typeof controller === 'string');
   controllers.forEach((controller) => {
     if (typeof controller === 'string') {
       // get all files from the glob pattern
@@ -47,12 +46,12 @@ export const createExpressServer = (
           if (middlewares && middlewares.length > 0) {
             // add handlers to app instance
             router[method](path, ...middlewares, (req, res) => {
-              handler(req, res, req.params, req.query);
+              handler(req, res, req.body, req.params, req.query);
             });
             return;
           }
           router[method](path, (req, res) => {
-            handler(req, res, req.params, req.query);
+            handler(req, res, req.body, req.params, req.query);
           });
         });
         if (dangoController._middlewares && dangoController._middlewares.length > 0) {
@@ -74,12 +73,12 @@ export const createExpressServer = (
         if (middlewares && middlewares.length > 0) {
           // add handlers to app instance
           router[method](path, ...middlewares, (req, res) => {
-            handler(req, res, req.params, req.query);
+            handler(req, res, req.body, req.params, req.query);
           });
           return;
         }
         router[method](path, (req, res) => {
-          handler(req, res, req.params, req.query);
+          handler(req, res, req.body, req.params, req.query);
         });
       });
       if (controller._middlewares && controller._middlewares.length > 0) {

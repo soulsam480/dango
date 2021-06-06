@@ -1,42 +1,96 @@
 import { NextFunction, Request, Response } from 'express';
 export interface BaseConfig {
+  /**
+   * An array of DangoControllers or glob path referencing to a folder
+   * @example
+    ```ts
+    createExpressServer(app, {
+      prefix: '/api',
+      controllers: [
+        'controllers/*.ts',
+        createController('/m', [
+          {
+            path: '/',
+            method: 'get',
+            handler: (req, res, body: User, params, queries) => {
+              res.send('m');
+            },
+          },
+        ]),
+      ]
+    });
+    ```
+   */
   controllers: (string | DangoController)[];
-  middlewares?: DangoMiddleware[];
+  /**
+   * Prefix all controller routes
+   *@example
+  ```ts
+    createExpressServer(app, {
+      prefix: '/api',
+    })
+  ```
+   */
   prefix?: string;
-}
-
-export interface DangoControllerOptions {
-  path: string | RegExp;
-  routes: DangoRoute[];
+  /**
+   * Array of middleware to be used in global scope
+   */
   middlewares?: DangoMiddleware[];
 }
-
-export type methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 export interface ParsedQs {
   [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
 }
-
 export interface ParamsDict {
   [key: string]: string;
 }
+export type methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
+
 export type DangoController = {
   _path: string | RegExp;
   _routes: ReadonlyArray<DangoRoute>;
   _middlewares?: ReadonlyArray<DangoMiddleware>;
 };
 
-export type DangoRouteHandler = <P extends ParamsDict, Q extends ParsedQs>(
+export type DangoRouteHandler = (
+  /**
+   * handler request object
+   */
   req: Request,
+  /**
+   * handler response object
+   */
   res: Response,
-  params: P,
-  query: Q,
+  /**
+   * request body
+   */
+  body: any,
+  /**
+   * route params
+   */
+  params: ParamsDict,
+  /**
+   * route queries
+   */
+  query: ParsedQs,
 ) => void;
 
-export type DangoRoute = {
+export interface DangoRoute {
+  /**
+   * Route path
+   */
   path: string | RegExp;
+  /**
+   * Route handler method
+   */
   method: methods;
+  /**
+   * Route handler
+   */
   handler: DangoRouteHandler;
+  /**
+   * Array of Route specific middlewares
+   */
   middlewares?: DangoMiddleware[];
-};
+}
 
 export type DangoMiddleware = (req: Request, res: Response, next: NextFunction) => void;
