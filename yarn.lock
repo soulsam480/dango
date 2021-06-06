@@ -634,6 +634,14 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+dango-core@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/dango-core/-/dango-core-1.0.0.tgz#a4bab9e1c0dd06d4b8277345f1914fc72c3e4384"
+  integrity sha512-0p85y0ZkmZ+Q/t0GoEeE4uCMgFpXjV1G6ldKSMdAUjeOeV28WXDZ4lytkPr8XFh+Jr9jwJd1SJJyhGKgZs2FFw==
+  dependencies:
+    "@types/express" "^4.17.12"
+    fast-glob "^3.2.5"
+
 dargs@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
