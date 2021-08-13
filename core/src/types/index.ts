@@ -43,6 +43,8 @@ export interface ParsedQs {
 export interface ParamsDict {
   [key: string]: string;
 }
+
+export type anyObj = { [x: string]: any };
 export type methods = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 
 export type DangoController = {
@@ -51,11 +53,11 @@ export type DangoController = {
   _middlewares?: ReadonlyArray<DangoMiddleware>;
 };
 
-export type DangoRouteHandler = (
+export type DangoRouteHandler<B = any, P = any, Q = any> = (
   /**
    * handler request object
    */
-  req: Request,
+  req: Request<P, any, B, Q>,
   /**
    * handler response object
    */
@@ -63,18 +65,18 @@ export type DangoRouteHandler = (
   /**
    * request body
    */
-  body: any,
+  body: B,
   /**
    * route params
    */
-  params: ParamsDict,
+  params: P,
   /**
    * route queries
    */
-  query: ParsedQs,
+  query: Q,
 ) => void;
 
-export interface DangoRoute {
+export interface DangoRoute<B = any, P = any, Q = any> {
   /**
    * Route path
    */
@@ -86,7 +88,7 @@ export interface DangoRoute {
   /**
    * Route handler
    */
-  handler: DangoRouteHandler;
+  handler: DangoRouteHandler<B, P, Q>;
   /**
    * Array of Route specific middlewares
    */

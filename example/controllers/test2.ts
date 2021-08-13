@@ -5,7 +5,7 @@ async function mockPromise(): Promise<number> {
   });
 }
 
-export default createController('/ddd', [
+export default createController('/test2', [
   {
     path: '/',
     method: 'get',
