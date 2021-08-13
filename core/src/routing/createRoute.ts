@@ -19,7 +19,7 @@ import { DangoRoute } from 'src/types/index';
  * Can be used with createController for modularity
  *  @example
  * ```ts
-  export default createController('/aa', [someRoute]);
+  export default createController('/aa', [userRoute]);
    ```
   */
 export function createRoute<B = any, P = any, Q = any>(
