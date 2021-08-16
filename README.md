@@ -2,7 +2,7 @@
 
 > Dumpling in japaneese.
 
-POC for functional `controllers` and `route-handlers` in express.
+Experimental functional routing controllers for express.
 
 ![npm](https://img.shields.io/npm/v/dango-core) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/dango-core) ![GitHub](https://img.shields.io/github/license/soulsam480/dango) ![npm](https://img.shields.io/npm/dm/dango-core)
 
@@ -158,6 +158,24 @@ export default createController('/test', [
   },
 ]);
 ```
+#### Helpers
+
+- ##### `response.sendError`
+
+  - send HTTP errors from response with proper intellisense
+    ```ts
+    import { createController, createRoute } from 'dango-core';
+
+    const someRoute = createRoute<{ user: string }>({
+      path: '/',
+      method: 'get',
+      handler: (req, res, body) => {
+        res.sendError(401,"Nope")
+      },
+    });
+
+    export default createController('/home', [someRoute]);
+    ```
 ### Packages
 
 | Package | version                                         |
