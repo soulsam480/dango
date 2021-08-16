@@ -2,6 +2,7 @@ import { BaseConfig, DangoController } from 'src/types';
 import { sync } from 'fast-glob';
 import express, { Express } from 'express';
 import { appendBaseRoute } from './helpers';
+import { HTTPCodes } from 'src/helpers/constants';
 /**
  * Create a Dango wrapper of express server with specific options
  * @param server
@@ -88,6 +89,18 @@ export const createExpressServer = (
       server.use(prefix ? appendBaseRoute(prefix, controller._path) : controller._path, router);
     }
   });
+
+  server.response.sendError = function (status, message) {
+    status = typeof status === 'string' ? HTTPCodes[status] : status;
+
+    if (!message) {
+      this.sendStatus(status);
+    } else {
+      this.status(status).send(message);
+    }
+
+    return this;
+  };
 
   return server;
 };

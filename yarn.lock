@@ -634,10 +634,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-"dango-core@workspace:@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/dango-core/-/dango-core-1.1.0.tgz#2efefe4f67f7ff45728d88ea05bd2807950abd68"
-  integrity sha512-wpDo3cTl4NPqrgX6aiw+H6nZtIBmeCi8YIRYoxYaWSxjCLL03ZA7J2CK8MddRR7kWRXKzI5oJbbJiAuujRsm3g==
+"dango-core@workspace:@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/dango-core/-/dango-core-1.2.0.tgz#51054d07c07f76405d354c0c86a13cf76f346307"
+  integrity sha512-Io62BHAtJtvjMLhKweUsj5Rx54HfCRH3Nq5ZV5+xrRsRl2aXvpbYUyEvipl/0xOwPh7LH23QKYpaVWjmitJ4LA==
   dependencies:
     "@types/express" "^4.17.12"
     fast-glob "^3.2.5"

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { HTTPCodes } from 'src/helpers/constants';
 export interface BaseConfig {
   /**
    * An array of DangoControllers or glob path referencing to a folder
@@ -53,6 +54,12 @@ export type DangoController = {
   _middlewares?: ReadonlyArray<DangoMiddleware>;
 };
 
+export type HTTPErrorCodes = typeof HTTPCodes[keyof typeof HTTPCodes] | keyof typeof HTTPCodes;
+
+export interface DangoResponse extends Response {
+  sendError(status: HTTPErrorCodes, message?: any): this;
+}
+
 export type DangoRouteHandler<B = any, P = any, Q = any> = (
   /**
    * handler request object
@@ -61,7 +68,7 @@ export type DangoRouteHandler<B = any, P = any, Q = any> = (
   /**
    * handler response object
    */
-  res: Response,
+  res: DangoResponse,
   /**
    * request body
    */
