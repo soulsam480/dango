@@ -2,7 +2,7 @@
 
 > Dumpling in japaneese.
 
-Experimental functional routing controllers for express.
+POC for functional `controllers` and `route-handlers` in express.
 
 ![npm](https://img.shields.io/npm/v/dango-core) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/dango-core) ![GitHub](https://img.shields.io/github/license/soulsam480/dango) ![npm](https://img.shields.io/npm/dm/dango-core)
 
@@ -96,6 +96,14 @@ This is a low level API which can be used to create routes with proper type defi
 
   export default createController('/aa', [userRoute]);
 ```
+- With express router style `function chaining`
+```ts
+import { createRoute } from 'dango-core';
+
+const home = createRoute<{ user: string }>('/')
+  .method('get')
+  .handler((_, res) => res.send('OK'));
+```
 
 #### Middlewares
 
@@ -160,7 +168,7 @@ export default createController('/test', [
 ```
 #### Helpers
 
-- ##### `response.sendError`
+- #### `response.sendError`
 
   - send HTTP errors from response with proper intellisense
     ```ts
