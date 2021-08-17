@@ -103,3 +103,9 @@ export interface DangoRoute<B = any, P = any, Q = any> {
 }
 
 export type DangoMiddleware = (req: Request, res: Response, next: NextFunction) => void;
+
+export interface DangoRouteChain<B = any, P = any, Q = any> {
+  _route: DangoRoute<B, P, Q>;
+  method(method: methods): this;
+  handler(handler: DangoRouteHandler<B, P, Q>): this;
+}

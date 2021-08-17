@@ -1,4 +1,4 @@
-import { DangoController, DangoMiddleware, DangoRoute } from 'src/types';
+import { DangoController, DangoMiddleware, DangoRoute, DangoRouteChain } from 'src/types';
 /**
  * Create a Dango controller with routes, middlewares.
  * @param path
@@ -37,15 +37,20 @@ import { DangoController, DangoMiddleware, DangoRoute } from 'src/types';
  */
 export const createController = (
   path: string,
-  routes: DangoRoute[],
+  routes: (DangoRoute | DangoRouteChain)[],
   middlewares?: DangoMiddleware[],
 ): DangoController => {
   return {
     _path: path,
     _routes: Object.freeze(
-      routes.filter(
-        (v, i, a) => a.findIndex((t) => t.path === v.path && t.method === v.method) === i,
-      ),
+      routes
+        .map<DangoRoute>((el) => {
+          if (new Object(el).hasOwnProperty('_route')) {
+            return (el as DangoRouteChain)._route;
+          }
+          return el as DangoRoute;
+        })
+        .filter((v, i, a) => a.findIndex((t) => t.path === v.path && t.method === v.method) === i),
     ),
     _middlewares: Object.freeze(middlewares),
   };

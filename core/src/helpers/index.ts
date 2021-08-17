@@ -15,3 +15,5 @@ export function appendBaseRoute(baseRoute: string, route: RegExp | string): stri
 
   return new RegExp(fullPath, route.flags);
 }
+
+export const toString = (arg: any) => Object.prototype.toString.call(arg);

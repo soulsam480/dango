@@ -1,12 +1,15 @@
 import { createController, createRoute } from 'dango-core';
 
-const someRoute = createRoute<{ user: string }>({
-  path: '/',
+const home = createRoute<{ user: string }>('/')
+  .method('get')
+  .handler((_, res) => res.send('OK'));
+
+const office = createRoute({
+  path: '/office',
   method: 'get',
-  handler: (req, res, body) => {
-    console.log(res.sendError(401, { yolo: 'some' }));
-    res.send('OK');
+  handler: (_, res) => {
+    res.sendError('BadRequest', 'LOL');
   },
 });
 
-export default createController('/home', [someRoute]);
+export default createController('/home', [home, office]);

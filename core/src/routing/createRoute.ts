@@ -1,4 +1,5 @@
-import { DangoRoute } from 'src/types/index';
+import { toString } from 'src/helpers/index';
+import { DangoRoute, DangoRouteChain } from 'src/types/index';
 
 /**
  * A low level wrapper for creating dango routes.
@@ -22,8 +23,24 @@ import { DangoRoute } from 'src/types/index';
   export default createController('/aa', [userRoute]);
    ```
   */
+
 export function createRoute<B = any, P = any, Q = any>(
   ctx: DangoRoute<B, P, Q>,
-): DangoRoute<B, P, Q> {
-  return Object.freeze(ctx);
+): DangoRouteChain<B, P, Q>;
+export function createRoute<B = any, P = any, Q = any>(ctx: string): DangoRouteChain<B, P, Q>;
+export function createRoute<B = any, P = any, Q = any>(ctx: any): DangoRouteChain<B, P, Q> {
+  const _route: DangoRoute<B, P, Q> =
+    toString(ctx) === '[object Object]' ? ctx : ({ path: ctx } as DangoRoute);
+
+  return {
+    _route,
+    method: function (method) {
+      this._route.method = method;
+      return this;
+    },
+    handler: function (handler) {
+      this._route.handler = handler;
+      return this;
+    },
+  };
 }
