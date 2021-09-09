@@ -14,6 +14,9 @@ POC for functional `controllers` and `route-handlers` in express.
 I'm not very familiar with `functional programming` and it's concepts. I'm learning it now and it turns out the `v0.0.2` dango code was not functional at all and it has been scraped see tag [v0.0.2](https://github.com/soulsam480/dango/releases/tag/0.0.2). I'll be proposing a new `API` for dango again. As we have been doing `OOP` for so long, `FP` will take some time to be fully understood.
 
 ### Breaking changes
+__v2.0.0__
+- The router handler ctx is now an object
+__v1.0.0__
 - `CreateHandler` has been scraped
 - `CreateController` params changed.
 ### Proposed API
@@ -54,7 +57,7 @@ export default createController(
     {
       path: '/',
       method: 'get',
-      handler: (req, res, params, queries) => {
+      handler: ({req, res, params, query}) => {
         res.send('is this working ?');
       },
       middlewares: [
@@ -77,6 +80,9 @@ export default createController(
 
 This is a low level API which can be used to create routes with proper type definitions for request body,params and query. Can be used with [`createController`](#controllers) for modularity.
 
+- __BREAKING CHANGE__
+  - `v2.0.0` the handler ctx is now an object
+
 - standalone
 ```ts
   import { createRoute } from 'dango-core';
@@ -84,7 +90,7 @@ This is a low level API which can be used to create routes with proper type defi
   const userRoute = createRoute<{ user: string }>({
     path: '/user',
     method: 'options',
-    handler: (req, res, body) => {
+    handler: ({req, res, body}) => {
       // proper ts definitions
       req.body.user;
     },
@@ -102,7 +108,7 @@ import { createRoute } from 'dango-core';
 
 const home = createRoute<{ user: string }>('/')
   .method('get')
-  .handler((_, res) => res.send('OK'));
+  .handler(({ res }) => res.send('OK'));
 ```
 
 #### Middlewares
@@ -134,7 +140,7 @@ export default createController(
     {
       path: '/yolo',
       method: 'get',
-      handler: (req, res) => {
+      handler: ({req, res}) => {
         res.send('is this working ?');
       },
     },
@@ -155,7 +161,7 @@ export default createController('/test', [
   {
     path: '/yolo',
     method: 'get',
-    handler: (req, res) => {
+    handler: ({req, res}) => {
       res.send('is this working ?');
     },
     middlewares: [
@@ -177,7 +183,7 @@ export default createController('/test', [
     const someRoute = createRoute<{ user: string }>({
       path: '/',
       method: 'get',
-      handler: (req, res, body) => {
+      handler: ({req, res, body}) => {
         res.sendError(401,"Nope")
       },
     });

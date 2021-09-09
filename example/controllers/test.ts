@@ -4,7 +4,7 @@ const home = createRoute<{ user: string }>('/')
   .method('get')
   .handler(({ res }) => res.send('OK'));
 
-const office = createRoute({
+const office = createRoute<{ user: string }>({
   path: '/office',
   method: 'get',
   handler: ({ res }) => {

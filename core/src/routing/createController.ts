@@ -13,14 +13,14 @@ import { DangoController, DangoMiddleware, DangoRoute, DangoRouteChain } from 's
       {
         path: '/',
         method: 'get',
-        handler: (req, res) => {
+        handler: ({req, res}) => {
           res.send('test on home');
         },
       },
       {
         path: '/test/:id',
         method: 'get',
-        handler: (req, res) => {
+        handler: ({req, res}) => {
           res.send('test with id');
         },
         middlewares: [

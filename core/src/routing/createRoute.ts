@@ -12,7 +12,7 @@ import { DangoRoute, DangoRouteChain } from 'src/types/index';
   const userRoute = createRoute<{ user: string }>({
     path: '/user',
     method: 'options',
-    handler: (req, res, body) => {
+    handler: ({req, res, body}) => {
       req.body.user;
     },
   });

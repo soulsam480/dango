@@ -13,7 +13,7 @@ export interface BaseConfig {
           {
             path: '/',
             method: 'get',
-            handler: (req, res, body: User, params, queries) => {
+            handler: ({req, res, body, params, query}) => {
               res.send('m');
             },
           },
