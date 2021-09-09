@@ -31,7 +31,7 @@ export const createExpressServer = (
       const controllerEntires = sync(controller, { dot: false });
       //loop over them to validate and add routes
 
-      controllerEntires.forEach((controller) => {
+      for (const controller of controllerEntires) {
         let file = require(controller);
         file = Object.freeze(file);
 
@@ -40,52 +40,67 @@ export const createExpressServer = (
 
         const dangoController: DangoController = file.default;
         if (!dangoController._path) throw new Error(' A controller shuld have a base path');
+
         const router = express.Router();
 
-        dangoController._routes.forEach(({ handler, method, path, middlewares }) => {
+        for (const { handler, method, path, middlewares } of dangoController._routes) {
           // check and add local middlewares
           if (middlewares && middlewares.length > 0) {
             // add handlers to app instance
-            router[method](path, ...middlewares, (req, res) => {
-              handler(req, res, req.body, req.params, req.query);
+            return router[method](path, ...middlewares, (req, res) => {
+              handler({
+                req: req,
+                res,
+                body: req.body,
+                params: req.params,
+                query: req.query,
+              });
             });
-            return;
           }
+
           router[method](path, (req, res) => {
-            handler(req, res, req.body, req.params, req.query);
+            handler({
+              req: req,
+              res,
+              body: req.body,
+              params: req.params,
+              query: req.query,
+            });
           });
-        });
-        if (dangoController._middlewares && dangoController._middlewares.length > 0) {
-          server.use(dangoController._path, ...dangoController._middlewares, router);
-          return;
         }
+
+        if (dangoController._middlewares && dangoController._middlewares.length > 0) {
+          return server.use(dangoController._path, ...dangoController._middlewares, router);
+        }
+
         server.use(
           prefix ? appendBaseRoute(prefix, dangoController._path) : dangoController._path,
           router,
         );
-      });
+      }
     } else if (typeof controller === 'object') {
       if (!controller._path) throw new Error(' A controller shuld have a base path');
 
       const router = express.Router();
 
-      controller._routes.forEach(({ handler, method, path, middlewares }) => {
+      for (const { handler, method, path, middlewares } of controller._routes) {
         // check and add local middlewares
         if (middlewares && middlewares.length > 0) {
           // add handlers to app instance
-          router[method](path, ...middlewares, (req, res) => {
-            handler(req, res, req.body, req.params, req.query);
+          return router[method](path, ...middlewares, (req, res) => {
+            handler({ req: req, res, body: req.body, params: req.params, query: req.query });
           });
-          return;
         }
+
         router[method](path, (req, res) => {
-          handler(req, res, req.body, req.params, req.query);
+          handler({ req: req, res, body: req.body, params: req.params, query: req.query });
         });
-      });
-      if (controller._middlewares && controller._middlewares.length > 0) {
-        server.use(controller._path, ...controller._middlewares, router);
-        return;
       }
+
+      if (controller._middlewares && controller._middlewares.length > 0) {
+        return server.use(controller._path, ...controller._middlewares, router);
+      }
+
       server.use(prefix ? appendBaseRoute(prefix, controller._path) : controller._path, router);
     }
   });

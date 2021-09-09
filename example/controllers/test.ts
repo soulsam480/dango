@@ -2,12 +2,12 @@ import { createController, createRoute } from 'dango-core';
 
 const home = createRoute<{ user: string }>('/')
   .method('get')
-  .handler((_, res) => res.send('OK'));
+  .handler(({ res }) => res.send('OK'));
 
 const office = createRoute({
   path: '/office',
   method: 'get',
-  handler: (_, res) => {
+  handler: ({ res }) => {
     res.sendError('BadRequest', 'LOL');
   },
 });

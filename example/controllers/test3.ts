@@ -4,14 +4,14 @@ export default createController('/main', [
   {
     path: '/',
     method: 'get',
-    handler: (req, res) => {
+    handler: ({ res }) => {
       res.send('is main working ?');
     },
   },
   {
     path: '/:main',
     method: 'get',
-    handler: (req, res, params) => {
+    handler: ({ res, params }) => {
       console.log(params);
 
       res.json(params);

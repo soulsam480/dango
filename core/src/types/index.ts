@@ -60,28 +60,30 @@ export interface DangoResponse extends Response {
   sendError(status: HTTPErrorCodes, message?: any): this;
 }
 
-export type DangoRouteHandler<B = any, P = any, Q = any> = (
+export interface HandlerCtx<B, P, Q> {
   /**
    * handler request object
    */
-  req: Request<P, any, B, Q>,
+  req: Request<P, any, B, Q>;
   /**
    * handler response object
    */
-  res: DangoResponse,
+  res: DangoResponse;
   /**
    * request body
    */
-  body: B,
+  body: B;
   /**
    * route params
    */
-  params: P,
+  params: P;
   /**
    * route queries
    */
-  query: Q,
-) => void;
+  query: Q;
+}
+
+export type DangoRouteHandler<B, P, Q> = (ctx: HandlerCtx<B, P, Q>) => void;
 
 export interface DangoRoute<B = any, P = any, Q = any> {
   /**

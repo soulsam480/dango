@@ -1,9 +1,7 @@
 import express from 'express';
 import { createController, createExpressServer } from 'dango-core';
 const app = express();
-interface User {
-  name: string;
-}
+
 createExpressServer(app, {
   prefix: '/api',
   controllers: [
@@ -12,14 +10,14 @@ createExpressServer(app, {
       {
         path: '/',
         method: 'get',
-        handler: (req, res, body: User, params, queries) => {
+        handler: ({ res }) => {
           res.send('m');
         },
       },
     ]),
   ],
   middlewares: [
-    (req, res, next) => {
+    (_, __, next) => {
       console.log('global');
       next();
     },

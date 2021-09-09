@@ -48,6 +48,7 @@ export const createController = (
           if (new Object(el).hasOwnProperty('_route')) {
             return (el as DangoRouteChain)._route;
           }
+
           return el as DangoRoute;
         })
         .filter((v, i, a) => a.findIndex((t) => t.path === v.path && t.method === v.method) === i),
