@@ -16,6 +16,13 @@ I'm not very familiar with `functional programming` and it's concepts. I'm learn
 ### Breaking changes
 __v2.0.0__
 - The router handler ctx is now an object
+```ts
+// B= body, P= params, Q=query
+// types createRoute<B,P,Q>
+ctx = { req, res, body, params, query }
+```
+- see [`createRoute`](#routes) for usage
+
 __v1.0.0__
 - `CreateHandler` has been scraped
 - `CreateController` params changed.
