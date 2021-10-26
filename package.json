@@ -7,17 +7,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "yarn workspace dango-core dev",
-    "build:core": "yarn workspace dango-core build",
-    "build": "yarn build:core",
-    "dev:ex": "yarn workspace example dev",
-    "build:ex": "yarn workspace example build",
+    "dev": "cd core && npm run dev",
+    "build:core": "cd core && npm run build",
+    "build": "pnpm run build:core",
+    "dev:ex": "cd example && npm run dev",
+    "build:ex": "cd example && npm run build",
     "release-core": "cd core && npm publish"
   },
-  "workspaces": [
-    "core",
-    "example"
-  ],
   "dependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
@@ -33,5 +29,7 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "uvu": "^0.5.2"
+  }
 }
