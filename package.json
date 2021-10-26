@@ -12,11 +12,14 @@
     "build": "pnpm run build:core",
     "dev:ex": "cd example && npm run dev",
     "build:ex": "cd example && npm run build",
-    "release-core": "cd core && npm publish"
+    "release-core": "cd core && npm publish",
+    "test": "uvu -r tsm 'tests'",
+    "test:watch": "watchlist tests -- pnpm run test"
   },
   "dependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "dango-core": "workspace:*",
     "husky": "^6.0.0"
   },
   "commitlint": {
@@ -30,6 +33,8 @@
     }
   },
   "devDependencies": {
-    "uvu": "^0.5.2"
+    "tsm": "^2.1.2",
+    "uvu": "^0.5.2",
+    "watchlist": "^0.3.1"
   }
 }
