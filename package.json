@@ -14,7 +14,8 @@
     "build:ex": "cd example && npm run build",
     "release-core": "cd core && npm publish",
     "test": "uvu -r tsm 'tests'",
-    "test:watch": "watchlist tests -- pnpm run test"
+    "test:watch": "watchlist tests -- pnpm run test",
+    "changelog": "npx auto-changelog --output CHANGELOG.md --template keepachangelog --commit-limit false --sort-commits date-desc --hide-credit"
   },
   "dependencies": {
     "@commitlint/cli": "^12.1.4",
