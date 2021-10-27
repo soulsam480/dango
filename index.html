@@ -1,0 +1,158 @@
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title> Dango | Functional routing controllers for express</title><meta name="description" content="Documentation for  Dango | Functional routing controllers for express"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title"> Dango | Functional routing controllers for express</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1> Dango | Functional routing controllers for express</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#dango" id="dango" style="color: inherit; text-decoration: none;">
+  <h2>Dango</h2>
+</a>
+<blockquote>
+<p>Dumpling in japaneese.</p>
+</blockquote>
+<p>POC for functional <code>controllers</code> and <code>route-handlers</code> in express.</p>
+<p><img src="https://img.shields.io/npm/v/dango-core" alt="npm"> <img src="https://img.shields.io/bundlephobia/minzip/dango-core" alt="npm bundle size"> <img src="https://img.shields.io/github/license/soulsam480/dango" alt="GitHub"> <img src="https://img.shields.io/npm/dm/dango-core" alt="npm"></p>
+
+<a href="#what-is-expected" id="what-is-expected" style="color: inherit; text-decoration: none;">
+  <h3>What is expected</h3>
+</a>
+<ul>
+<li>Functional way of writing routers</li>
+<li>Follow function programming concepts</li>
+<li>Composition over inheritance
+<a href="#update-v100" id="update-v100" style="color: inherit; text-decoration: none;">
+  <h3>Update v1.0.0</h3>
+</a>
+I&#39;m not very familiar with <code>functional programming</code> and it&#39;s concepts. I&#39;m learning it now and it turns out the <code>v0.0.2</code> dango code was not functional at all and it has been scraped see tag <a href="https://github.com/soulsam480/dango/releases/tag/0.0.2">v0.0.2</a>. I&#39;ll be proposing a new <code>API</code> for dango again. As we have been doing <code>OOP</code> for so long, <code>FP</code> will take some time to be fully understood.</li>
+</ul>
+
+<a href="#breaking-changes" id="breaking-changes" style="color: inherit; text-decoration: none;">
+  <h3>Breaking changes</h3>
+</a>
+<p><strong>v2.0.0</strong></p>
+<ul>
+<li>The router handler ctx is now an object<pre><code class="language-ts"><span class="hl-9">// B= body, P= params, Q=query</span><br/><span class="hl-9">// types createRoute&lt;B,P,Q&gt;</span><br/><span class="hl-2">ctx</span><span class="hl-0"> = { </span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">body</span><span class="hl-0">, </span><span class="hl-2">params</span><span class="hl-0">, </span><span class="hl-2">query</span><span class="hl-0"> }</span>
+</code></pre>
+</li>
+<li>see <a href="#routes"><code>createRoute</code></a> for usage</li>
+</ul>
+<p><strong>v1.0.0</strong></p>
+<ul>
+<li><code>CreateHandler</code> has been scraped</li>
+<li><code>CreateController</code> params changed.
+<a href="#proposed-api" id="proposed-api" style="color: inherit; text-decoration: none;">
+  <h3>Proposed API</h3>
+</a>
+</li>
+</ul>
+<p>Core:</p>
+<ul>
+<li><a href="#express-wrapper"><code>createExpressServer</code></a></li>
+<li><a href="#controllers"><code>createController</code></a></li>
+<li><a href="#routes"><code>createRoute</code></a></li>
+</ul>
+
+<a href="#express-wrapper" id="express-wrapper" style="color: inherit; text-decoration: none;">
+  <h4>Express wrapper</h4>
+</a>
+<ul>
+<li>A wrapper on <code>express</code> to inject controllers.</li>
+<li>Can be used as</li>
+</ul>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> </span><span class="hl-2">express</span><span class="hl-0"> </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;express&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createExpressServer</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;dango-core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">app</span><span class="hl-0"> = </span><span class="hl-4">express</span><span class="hl-0">();</span><br/><br/><span class="hl-4">createExpressServer</span><span class="hl-0">(</span><span class="hl-2">app</span><span class="hl-0">, { </span><span class="hl-2">controllers:</span><span class="hl-0"> [</span><span class="hl-3">&#39;./controllers/*.ts&#39;</span><span class="hl-0">] }).</span><span class="hl-4">listen</span><span class="hl-0">(</span><span class="hl-7">3000</span><span class="hl-0">, () </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-4">log</span><span class="hl-0">(</span><span class="hl-3">&#39;http://localhost:3000&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">});</span><br/>
+</code></pre>
+<ul>
+<li>controller definition should be a <code>glob</code> path.</li>
+</ul>
+
+<a href="#controllers" id="controllers" style="color: inherit; text-decoration: none;">
+  <h4>Controllers</h4>
+</a>
+<ul>
+<li>A controller can be created with <code>createController</code> method.</li>
+</ul>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createController</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;dango-core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-4">createController</span><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-3">&#39;/&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  [</span><br/><span class="hl-0">    {</span><br/><span class="hl-0">      </span><span class="hl-2">path:</span><span class="hl-0"> </span><span class="hl-3">&#39;/&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-2">method:</span><span class="hl-0"> </span><span class="hl-3">&#39;get&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-4">handler</span><span class="hl-2">:</span><span class="hl-0"> ({</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">params</span><span class="hl-0">, </span><span class="hl-2">query</span><span class="hl-0">}) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&#39;is this working ?&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">      },</span><br/><span class="hl-0">      </span><span class="hl-2">middlewares:</span><span class="hl-0"> [</span><br/><span class="hl-0">        (</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">next</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">          </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&quot;I&#39;m local&quot;</span><span class="hl-0">);</span><br/><span class="hl-0">        },</span><br/><span class="hl-0">      ],</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">  ],</span><br/><span class="hl-0">  [</span><br/><span class="hl-0">    (</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">next</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">      </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&quot;I&#39;m global&quot;</span><span class="hl-0">);</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">  ],</span><br/><span class="hl-0">);</span>
+</code></pre>
+<ul>
+<li>Should be default exported from the controller file.</li>
+</ul>
+
+<a href="#routes" id="routes" style="color: inherit; text-decoration: none;">
+  <h4>Routes</h4>
+</a>
+<p>This is a low level API which can be used to create routes with proper type definitions for request body,params and query. Can be used with <a href="#controllers"><code>createController</code></a> for modularity.</p>
+<ul>
+<li><p><strong>BREAKING CHANGE</strong></p>
+<ul>
+<li><code>v2.0.0</code> the handler ctx is now an object</li>
+</ul>
+</li>
+<li><p>standalone
+```ts
+import { createRoute } from &#39;dango-core&#39;;</p>
+<p>const userRoute = createRoute&lt;{ user: string }&gt;({
+  path: &#39;/user&#39;,
+  method: &#39;options&#39;,
+  handler: ({req, res, body}) =&gt; {
+// proper ts definitions
+req.body.user;
+  },
+});</p>
+</li>
+</ul>
+<pre><code><span class="hl-0">- </span><span class="hl-1">with</span><span class="hl-0"> </span><span class="hl-2">controller</span><br/><span class="hl-3">```ts</span><br/><span class="hl-3">  import { createController } from &#39;dango-core&#39;;</span><br/><br/><span class="hl-3">  export default createController(&#39;/aa&#39;, [userRoute]);</span>
+</code></pre>
+<ul>
+<li>With express router style <code>function chaining</code>
+```ts
+import { createRoute } from &#39;dango-core&#39;;</li>
+</ul>
+<p>const home = createRoute&lt;{ user: string }&gt;(&#39;/&#39;)
+  .method(&#39;get&#39;)
+  .handler(({ res }) =&gt; res.send(&#39;OK&#39;));</p>
+<pre><code><br/><span class="hl-0">#### </span><span class="hl-2">Middlewares</span><br/><br/><span class="hl-0">##### </span><span class="hl-2">Global</span><br/><br/><span class="hl-3">```ts</span><br/><span class="hl-3">import express from &#39;express&#39;;</span><br/><span class="hl-3">import { createExpressServer } from &#39;dango-core&#39;;</span><br/><span class="hl-3">const app = express();</span><br/><br/><span class="hl-3">createExpressServer(app, {</span><br/><span class="hl-3">  controllers: [&#39;controllers/**.ts&#39;],</span><br/><span class="hl-3">  middlewares: [</span><br/><span class="hl-3">    (req, res, next) =&gt; {</span><br/><span class="hl-3">      res.send(&quot;I&#39;m global&quot;);</span><br/><span class="hl-3">    },</span><br/><span class="hl-3">  ],</span><br/><span class="hl-3">}).listen(4000, () =&gt; console.log(&#39;http://localhost:4000&#39;));</span>
+</code></pre>
+
+<a href="#controller-specific" id="controller-specific" style="color: inherit; text-decoration: none;">
+  <h5>Controller specific</h5>
+</a>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createController</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;dango-core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-4">createController</span><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-3">&#39;/test&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  [</span><br/><span class="hl-0">    {</span><br/><span class="hl-0">      </span><span class="hl-2">path:</span><span class="hl-0"> </span><span class="hl-3">&#39;/yolo&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-2">method:</span><span class="hl-0"> </span><span class="hl-3">&#39;get&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">      </span><span class="hl-4">handler</span><span class="hl-2">:</span><span class="hl-0"> ({</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">}) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&#39;is this working ?&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">      },</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">  ],</span><br/><span class="hl-0">  [</span><br/><span class="hl-0">    (</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">next</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">      </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&quot;I&#39;m controller specific&quot;</span><span class="hl-0">);</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">  ],</span><br/><span class="hl-0">);</span>
+</code></pre>
+
+<a href="#route-specific" id="route-specific" style="color: inherit; text-decoration: none;">
+  <h5>Route specific</h5>
+</a>
+<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createController</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;dango-core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-4">createController</span><span class="hl-0">(</span><span class="hl-3">&#39;/test&#39;</span><span class="hl-0">, [</span><br/><span class="hl-0">  {</span><br/><span class="hl-0">    </span><span class="hl-2">path:</span><span class="hl-0"> </span><span class="hl-3">&#39;/yolo&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-2">method:</span><span class="hl-0"> </span><span class="hl-3">&#39;get&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">    </span><span class="hl-4">handler</span><span class="hl-2">:</span><span class="hl-0"> ({</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">}) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">      </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&#39;is this working ?&#39;</span><span class="hl-0">);</span><br/><span class="hl-0">    },</span><br/><span class="hl-0">    </span><span class="hl-2">middlewares:</span><span class="hl-0"> [</span><br/><span class="hl-0">      (</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">next</span><span class="hl-0">) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">        </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">send</span><span class="hl-0">(</span><span class="hl-3">&quot;I&#39;m route specific&quot;</span><span class="hl-0">);</span><br/><span class="hl-0">      },</span><br/><span class="hl-0">    ],</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">]);</span>
+</code></pre>
+
+<a href="#helpers" id="helpers" style="color: inherit; text-decoration: none;">
+  <h4>Helpers</h4>
+</a>
+<ul>
+<li>
+<a href="#responsesenderror" id="responsesenderror" style="color: inherit; text-decoration: none;">
+  <h4><code>response.sendError</code></h4>
+</a>
+<ul>
+<li>send HTTP errors from response with proper intellisense<pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createController</span><span class="hl-0">, </span><span class="hl-2">createRoute</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;dango-core&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">someRoute</span><span class="hl-0"> = </span><span class="hl-4">createRoute</span><span class="hl-0">&lt;{ </span><span class="hl-2">user</span><span class="hl-0">: </span><span class="hl-8">string</span><span class="hl-0"> }&gt;({</span><br/><span class="hl-0">  </span><span class="hl-2">path:</span><span class="hl-0"> </span><span class="hl-3">&#39;/&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-2">method:</span><span class="hl-0"> </span><span class="hl-3">&#39;get&#39;</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">handler</span><span class="hl-2">:</span><span class="hl-0"> ({</span><span class="hl-2">req</span><span class="hl-0">, </span><span class="hl-2">res</span><span class="hl-0">, </span><span class="hl-2">body</span><span class="hl-0">}) </span><span class="hl-5">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">res</span><span class="hl-0">.</span><span class="hl-4">sendError</span><span class="hl-0">(</span><span class="hl-7">401</span><span class="hl-0">,</span><span class="hl-3">&quot;Nope&quot;</span><span class="hl-0">)</span><br/><span class="hl-0">  },</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-1">export</span><span class="hl-0"> </span><span class="hl-1">default</span><span class="hl-0"> </span><span class="hl-4">createController</span><span class="hl-0">(</span><span class="hl-3">&#39;/home&#39;</span><span class="hl-0">, [</span><span class="hl-2">someRoute</span><span class="hl-0">]);</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+<a href="#packages" id="packages" style="color: inherit; text-decoration: none;">
+  <h3>Packages</h3>
+</a>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core</td>
+<td><img src="https://img.shields.io/npm/v/dango-core" alt="npm"></td>
+</tr>
+<tr>
+<td>Example</td>
+<td>NA</td>
+</tr>
+</tbody></table>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-interface"><a href="interfaces/BaseConfig.html" class="tsd-kind-icon">Base<wbr/>Config</a></li><li class="tsd-kind-interface"><a href="interfaces/DangoResponse.html" class="tsd-kind-icon">Dango<wbr/>Response</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/DangoRoute.html" class="tsd-kind-icon">Dango<wbr/>Route</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/DangoRouteChain.html" class="tsd-kind-icon">Dango<wbr/>Route<wbr/>Chain</a></li><li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/HandlerCtx.html" class="tsd-kind-icon">Handler<wbr/>Ctx</a></li><li class="tsd-kind-interface"><a href="interfaces/ParamsDict.html" class="tsd-kind-icon">Params<wbr/>Dict</a></li><li class="tsd-kind-interface"><a href="interfaces/ParsedQs.html" class="tsd-kind-icon">Parsed<wbr/>Qs</a></li><li class="tsd-kind-type-alias"><a href="modules.html#DangoController" class="tsd-kind-icon">Dango<wbr/>Controller</a></li><li class="tsd-kind-type-alias"><a href="modules.html#DangoMiddleware" class="tsd-kind-icon">Dango<wbr/>Middleware</a></li><li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#DangoRouteHandler" class="tsd-kind-icon">Dango<wbr/>Route<wbr/>Handler</a></li><li class="tsd-kind-type-alias"><a href="modules.html#HTTPErrorCodes" class="tsd-kind-icon">HTTPError<wbr/>Codes</a></li><li class="tsd-kind-type-alias"><a href="modules.html#anyObj" class="tsd-kind-icon">any<wbr/>Obj</a></li><li class="tsd-kind-type-alias"><a href="modules.html#methods" class="tsd-kind-icon">methods</a></li><li class="tsd-kind-function"><a href="modules.html#createController" class="tsd-kind-icon">create<wbr/>Controller</a></li><li class="tsd-kind-function"><a href="modules.html#createExpressServer" class="tsd-kind-icon">create<wbr/>Express<wbr/>Server</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#createRoute" class="tsd-kind-icon">create<wbr/>Route</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
