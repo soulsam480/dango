@@ -15,7 +15,8 @@
     "release-core": "cd core && npm publish",
     "test": "uvu -r tsm 'tests'",
     "test:watch": "watchlist tests -- pnpm run test",
-    "changelog": "npx auto-changelog --output CHANGELOG.md --template keepachangelog --commit-limit false --sort-commits date-desc --hide-credit"
+    "changelog": "npx auto-changelog --output CHANGELOG.md --template keepachangelog --commit-limit false --sort-commits date-desc --hide-credit",
+    "build:docs": "rm -rf docs && typedoc ./core/src --name \" Dango | Functional routing controllers for express\" --out ./docs --readme README.md --tsconfig ./core/tsconfig.json"
   },
   "dependencies": {
     "@commitlint/cli": "^12.1.4",
@@ -35,6 +36,8 @@
   },
   "devDependencies": {
     "tsm": "^2.1.2",
+    "typedoc": "^0.22.7",
+    "typescript": "^4.4.2",
     "uvu": "^0.5.2",
     "watchlist": "^0.3.1"
   }

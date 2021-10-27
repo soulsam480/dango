@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x]
         os: [ubuntu-latest]
       fail-fast: false
 
@@ -41,3 +41,12 @@ jobs:
 
       - name: Test
         run: nr test --if-present
+
+      - name: build docs
+        run: nr build:docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: docs # The folder the action should deploy.
